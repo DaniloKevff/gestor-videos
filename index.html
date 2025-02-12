@@ -264,10 +264,10 @@
 
       // Envío de datos vía AJAX (reemplaza YOUR_GOOGLE_SCRIPT_ID por tu ID real)
       $.ajax({
-        url: 'https://script.google.com/macros/s/AKfycbwHG1zpGRUSugfcHs8N0FyexxowB0yTeaNWjvcgim9iS1mMAS38Qge05_nEGVVZLtbM/exec',
+        url: 'https://script.google.com/macros/s/AKfycbz1MCGju877kuOGey-g9NDVVoxUeAKwnjRG2kpkXmD9CyPDKh884LxiORu9AH_8YlXU/exec',
         method: 'POST',
-        dataType: 'jsonp',
-        data: {
+        contentType: 'application/json',
+        data: JSON.stringify({
           videoId: currentVideoId,
           linkRef: linkRef,
           commentRef: commentRef,
@@ -275,14 +275,15 @@
           commentDrive: commentDrive,
           estadoRealizacion: estadoRealizacion,
           estadoAprobacion: estadoAprobacion
-        },
+        }),
         success: function(response) {
-          alert('Datos guardados correctamente.');
-        },
-        error: function() {
-          alert('Error al guardar.');
-        }
-      });
+    alert('Datos guardados correctamente.');
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.error("Error al guardar:", textStatus, errorThrown);
+    alert('Error al guardar.');
+  }
+});
 
       // Cierra el modal tras guardar
       let modalEl = document.getElementById('editModal');
